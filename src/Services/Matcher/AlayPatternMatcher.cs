@@ -10,12 +10,12 @@ namespace Services.Matcher
             return MatchPattern(alay, regex);
         }
 
-        public static bool MatchPattern(string str, string regex)
+        private static bool MatchPattern(string str, string regex)
         {
             return Regex.IsMatch(str, regex, RegexOptions.IgnoreCase);
         }
 
-        public static string BuildRegexPattern(string original)
+        private static string BuildRegexPattern(string original)
         {
             string[] words = original.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string pattern = "^";
@@ -68,7 +68,7 @@ namespace Services.Matcher
         }
 
         // Not used
-        static string buildPattern(string original)
+        private static string buildPattern(string original)
         {
             string[] words = original.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string pattern = "^";

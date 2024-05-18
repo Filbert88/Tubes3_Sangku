@@ -6,7 +6,7 @@ namespace Services.Processor
 {
     public class ImageProcessor
     {
-        static string ConvertImageToBinary(string imagePath)
+        private static string ConvertImageToBinary(string imagePath)
         {
             StringBuilder binary = new StringBuilder();
 
@@ -25,7 +25,7 @@ namespace Services.Processor
 
             return binary.ToString();
         }
-        static string ConvertBinaryToAscii(string binaryString)
+        private static string ConvertBinaryToAscii(string binaryString)
         {
             StringBuilder ascii = new StringBuilder();
             for (int i = 0; i < binaryString.Length; i += 8)
@@ -43,7 +43,7 @@ namespace Services.Processor
             return ConvertBinaryToAscii(ConvertImageToBinary(imagePath));
         }
 
-        static int CountTransitions(string binaryString)
+        private static int CountTransitions(string binaryString)
         {
             int transitions = 0;
             for (int i = 1; i < binaryString.Length; i++)
@@ -56,7 +56,7 @@ namespace Services.Processor
             return transitions;
         }
 
-        static string FindBestTransitionBlock(string binaryString, int blockSize)
+        private static string FindBestTransitionBlock(string binaryString, int blockSize)
         {
             int maxTransitionCount = 0;
             string bestSubstring = binaryString.Substring(0, Math.Min(binaryString.Length, blockSize));

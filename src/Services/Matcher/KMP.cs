@@ -40,7 +40,7 @@ namespace Services.Matcher
             return result;
         }
 
-        static int[] generateLPSArray(string pat, int patternLength)
+        private static int[] generateLPSArray(string pat, int patternLength)
         {
             int len = 0;
             int i = 1;

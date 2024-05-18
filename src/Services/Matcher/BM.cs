@@ -2,7 +2,7 @@ namespace Services.Matcher
 {
     class BoyerMoore
     {
-        static int max(int a, int b)
+        private static int max(int a, int b)
         {
             if (a > b)
             {
@@ -13,7 +13,7 @@ namespace Services.Matcher
                 return b;
             }
         }
-        static int[] generateBadCharArray(char[] str, int size)
+        private static int[] generateBadCharArray(char[] str, int size)
         {
             int[] badChar = new int[256];
             int i;
