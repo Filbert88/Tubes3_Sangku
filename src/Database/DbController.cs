@@ -26,7 +26,7 @@ namespace Database
                                 Biodata biodata = new Biodata
                                 {
                                     NIK = reader["NIK"].ToString() ?? string.Empty,
-                                    Nama = reader["nama"].ToString() ?? string.Empty,
+                                    NamaAlay = reader["nama"].ToString() ?? string.Empty,
                                     TempatLahir = reader["tempat_lahir"].ToString() ?? string.Empty,
                                     TanggalLahir = Convert.ToDateTime(reader["tanggal_lahir"]).ToString("dd-MM-yyyy") ?? string.Empty,
                                     JenisKelamin = reader["jenis_kelamin"].ToString() ?? string.Empty,
@@ -72,7 +72,7 @@ namespace Database
                                 FingerprintPath fingerprint = new FingerprintPath
                                 {
                                     ImagePath = reader["berkas_citra"].ToString() ?? string.Empty,
-                                    NamaAlay = reader["nama"].ToString() ?? string.Empty
+                                    Nama = reader["nama"].ToString() ?? string.Empty
                                 };
                                 fingerprintList.Add(fingerprint);
                             }

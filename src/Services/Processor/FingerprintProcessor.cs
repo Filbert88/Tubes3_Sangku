@@ -13,7 +13,7 @@ namespace Services.Processor
                 processed.Add(new Fingerprint
                 {
                     PixelAscii = ImageProcessor.ReadAllPixelToAscii(fingerprintPath.ImagePath),
-                    NamaAlay = fingerprintPath.NamaAlay
+                    Nama = fingerprintPath.Nama
                 });
             }
 

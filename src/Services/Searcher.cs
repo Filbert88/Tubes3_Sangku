@@ -20,7 +20,7 @@ namespace Services
                 double similarity = 1.0 - (double)distance / Math.Max(fullPixelAscii.Length, fingerprint.PixelAscii.Length); // Fixed similarity calculation
                 if (similarity >= maxSimilarity && similarity >= threshold)
                 {
-                    result = fingerprint.NamaAlay;
+                    result = fingerprint.Nama;
                     maxSimilarity = similarity;
                 }
             }
@@ -30,13 +30,14 @@ namespace Services
             return (result, similarityPercentage);
         }
 
-        private static Biodata? GetBiodataByRegexAlay(string namaAlay)
+        private static Biodata? GetBiodataByRegexAlay(string nama)
         {
             var biodatas = DbController.GetBiodataList();
             foreach (var biodata in biodatas)
             {
-                if (AlayPatternMatcher.IsMatch(biodata.Nama, namaAlay))
+                if (AlayPatternMatcher.IsMatch(nama, biodata.NamaAlay))
                 {
+                    biodata.NamaAlay = nama;
                     return biodata;
                 }
             }
@@ -49,7 +50,7 @@ namespace Services
             {
                 if (KnuthMorrisPratt.Search(pattern, fingerprint.PixelAscii).Count() > 0)
                 {
-                    return (fingerprint.NamaAlay, 100);
+                    return (fingerprint.Nama, 100);
                 }
             }
             return (null, 0);
@@ -61,7 +62,7 @@ namespace Services
             {
                 if (BoyerMoore.Search(pattern, fingerprint.PixelAscii).Count() > 0)
                 {
-                    return (fingerprint.NamaAlay, 100);
+                    return (fingerprint.Nama, 100);
                 }
             }
             return (null, 0);

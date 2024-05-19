@@ -40,7 +40,7 @@ namespace Services.Matcher
                             "e" => "[eE3]",
                             "i" => "[iI1]",
                             "o" => "[oO0]",
-                            "u" => "[uvUV]",
+                            "u" => "[uU]",
                             _ => lowerChar
                         };
                         wordPattern += $"({alayVariant})?";

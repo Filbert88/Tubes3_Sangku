@@ -3,7 +3,7 @@ namespace Models
     public class Biodata
     {
         public required string NIK { get; set; }
-        public required string Nama { get; set; }
+        public required string NamaAlay { get; set; }
         public required string TempatLahir { get; set; }
         public required string TanggalLahir { get; set; }
         public required string JenisKelamin { get; set; }
