@@ -61,7 +61,7 @@ namespace Services.Processor
             int maxTransitionCount = 0;
             string bestSubstring = binaryString.Substring(0, Math.Min(binaryString.Length, blockSize));
 
-            for (int i = 0; i <= binaryString.Length - blockSize; i += blockSize)
+            for (int i = 0; i <= binaryString.Length - blockSize; i += 8)
             {
                 int length = Math.Min(blockSize, binaryString.Length - i);
                 string substring = binaryString.Substring(i, length);
