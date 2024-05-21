@@ -16,18 +16,19 @@ class Program
             password: ""
         );
 
-        string imagePath = "../test/Altered/Altered-Easy/1__M_Left_index_finger_CR.BMP";
+        string imagePath = "../test/Altered/Altered-Easy/560__F_Left_index_finger_Obl.BMP";
         string algorithm = "BM"; // "KMP" or "BM"
 
-        var (biodata, usedAlgorithm, similarity, execTime) = Searcher.GetResult(imagePath, algorithm);
+        var searchResult = Searcher.GetResult(imagePath, algorithm);
 
         Console.WriteLine("[RESULT]");
-        if (biodata != null)
+        if (searchResult.biodata != null)
         {
-            Console.WriteLine($"Algorithm     : {usedAlgorithm}");
-            Console.WriteLine($"Biodata       : {biodata.NamaAlay}, {biodata.NIK}"); // NamaAlay already become RealName
-            Console.WriteLine($"Similarity(%) : {similarity}");
-            Console.WriteLine($"execTime(ms)  : {execTime}");
+            Console.WriteLine($"Algorithm     : {searchResult.algorithm}");
+            Console.WriteLine($"Biodata       : {searchResult.biodata.NamaAlay}, {searchResult.biodata.NIK}"); // NamaAlay already become RealName
+            Console.WriteLine($"Similarity(%) : {searchResult.similarity}");
+            Console.WriteLine($"ExecTime(ms)  : {searchResult.execTime}");
+            Console.WriteLine($"ResultImage   : {searchResult.imagePath}");
         }
         else
         {

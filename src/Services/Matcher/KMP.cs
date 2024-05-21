@@ -2,11 +2,11 @@ namespace Services.Matcher
 {
     class KnuthMorrisPratt
     {
-        public static List<int> Search(string pattern, string text)
+        public static bool Search(string pattern, string text)
         {
             int patternLength = pattern.Length;
             int textLength = text.Length;
-            List<int> result = new List<int>();
+            // List<int> result = new List<int>();
             int[] lps = generateLPSArray(pattern, patternLength);
 
             int patternIdx = 0;
@@ -20,8 +20,9 @@ namespace Services.Matcher
                 }
                 if (patternIdx == patternLength)
                 {
-                    result.Add(textIdx - patternIdx);
-                    patternIdx = lps[patternIdx - 1];
+                    // result.Add(textIdx - patternIdx);
+                    // patternIdx = lps[patternIdx - 1];
+                    return true;
                 }
 
                 else if (textIdx < textLength && pattern[patternIdx] != text[textIdx])
@@ -37,7 +38,8 @@ namespace Services.Matcher
                 }
             }
 
-            return result;
+            // return result;
+            return false;
         }
 
         private static int[] generateLPSArray(string pat, int patternLength)

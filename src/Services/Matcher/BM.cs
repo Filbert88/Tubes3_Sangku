@@ -37,14 +37,14 @@ namespace Services.Matcher
             return badChar;
         }
 
-        public static List<int> Search(string pattern, string text)
+        public static bool Search(string pattern, string text)
         {
             char[] textCharArray = text.ToCharArray();
             char[] patternCharArray = pattern.ToCharArray();
             int patternLength = patternCharArray.Length;
             int textLength = textCharArray.Length;
 
-            List<int> result = new List<int>();
+            // List<int> result = new List<int>();
 
             int[] badChar = generateBadCharArray(patternCharArray, patternLength);
             int shift = 0;
@@ -57,15 +57,16 @@ namespace Services.Matcher
                 }
                 if (idx < 0)
                 {
-                    result.Add(shift);
-                    if (shift + patternLength < textLength)
-                    {
-                        shift += patternLength - badChar[textCharArray[shift + patternLength]];
-                    }
-                    else
-                    {
-                        shift += 1;
-                    }
+                    // result.Add(shift);
+                    // if (shift + patternLength < textLength)
+                    // {
+                    //     shift += patternLength - badChar[textCharArray[shift + patternLength]];
+                    // }
+                    // else
+                    // {
+                    //     shift += 1;
+                    // }
+                    return true;
                 }
                 else
                 {
@@ -73,7 +74,8 @@ namespace Services.Matcher
                 }
             }
 
-            return result;
+            // return result;
+            return false;
         }
     }
 }
