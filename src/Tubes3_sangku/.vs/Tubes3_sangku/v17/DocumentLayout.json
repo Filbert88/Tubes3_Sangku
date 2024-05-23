@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Documents\\ITB\\Sem 4\\Stima\\Tubes3_Sangku\\src\\Tubes3_sangku\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F8D731F7-2FEB-4A58-80BC-A6B12C34ECB4}|Tubes3_sangku.csproj|c:\\users\\user\\documents\\itb\\sem 4\\stima\\tubes3_sangku\\src\\tubes3_sangku\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F8D731F7-2FEB-4A58-80BC-A6B12C34ECB4}|Tubes3_sangku.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8D731F7-2FEB-4A58-80BC-A6B12C34ECB4}|Tubes3_sangku.csproj|c:\\users\\user\\documents\\itb\\sem 4\\stima\\tubes3_sangku\\src\\tubes3_sangku\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8D731F7-2FEB-4A58-80BC-A6B12C34ECB4}|Tubes3_sangku.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\ITB\\Sem 4\\Stima\\Tubes3_Sangku\\src\\Tubes3_sangku\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\User\\Documents\\ITB\\Sem 4\\Stima\\Tubes3_Sangku\\src\\Tubes3_sangku\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-23T10:08:48.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\ITB\\Sem 4\\Stima\\Tubes3_Sangku\\src\\Tubes3_sangku\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\ITB\\Sem 4\\Stima\\Tubes3_Sangku\\src\\Tubes3_sangku\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T10:08:44.387Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
