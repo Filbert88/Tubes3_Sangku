@@ -6,7 +6,6 @@ C:\Users\User\Documents\ITB\Sem 4\Stima\Tubes3_Sangku\src\Tubes3_sangku\bin\Debu
 C:\Users\User\Documents\ITB\Sem 4\Stima\Tubes3_Sangku\src\Tubes3_sangku\obj\Debug\net8.0-windows\MainWindow.g.cs
 C:\Users\User\Documents\ITB\Sem 4\Stima\Tubes3_Sangku\src\Tubes3_sangku\obj\Debug\net8.0-windows\App.g.cs
 C:\Users\User\Documents\ITB\Sem 4\Stima\Tubes3_Sangku\src\Tubes3_sangku\obj\Debug\net8.0-windows\Tubes3_sangku_MarkupCompile.cache
-C:\Users\User\Documents\ITB\Sem 4\Stima\Tubes3_Sangku\src\Tubes3_sangku\obj\Debug\net8.0-windows\Tubes3_sangku_MarkupCompile.lref
 C:\Users\User\Documents\ITB\Sem 4\Stima\Tubes3_Sangku\src\Tubes3_sangku\obj\Debug\net8.0-windows\MainWindow.baml
 C:\Users\User\Documents\ITB\Sem 4\Stima\Tubes3_Sangku\src\Tubes3_sangku\obj\Debug\net8.0-windows\Tubes3_sangku.g.resources
 C:\Users\User\Documents\ITB\Sem 4\Stima\Tubes3_Sangku\src\Tubes3_sangku\obj\Debug\net8.0-windows\Tubes3_sangku.GeneratedMSBuildEditorConfig.editorconfig

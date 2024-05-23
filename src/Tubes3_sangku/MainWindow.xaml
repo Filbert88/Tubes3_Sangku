@@ -1,14 +1,66 @@
-﻿<Window x:Class="Tubes3_sangku.MainWindow"
+﻿<Window x:Class="FingerprintApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tubes3_sangku"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="85,156,0,0" VerticalAlignment="Top" Height="102" Width="222"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="302,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.269,6.602"/>
+        Title="Fingerprint Matching Application" Height="450" Width="800" Background="WhiteSmoke">
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Fingerprint Input Display -->
+            <Border Grid.Column="0" Background="Gray" Margin="5">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label Content="Sidik Jari Masukan" HorizontalAlignment="Center" Foreground="White"/>
+                    <Image x:Name="inputImage" Height="200" Stretch="Fill" Margin="10"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Image Result Display -->
+            <Border Grid.Column="1" Background="Gray" Margin="5">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label Content="Sidik Jari Cocok" HorizontalAlignment="Center" Foreground="White"/>
+                    <Image x:Name="resultImage" Height="200" Stretch="Fill" Margin="10"/>
+                </StackPanel>
+            </Border>
+
+            <!-- List of Results -->
+            <Border Grid.Column="2" Background="Gray" Margin="5">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label Content="List Biodata" HorizontalAlignment="Center" Foreground="White"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200">
+                        <ItemsControl x:Name="resultsList" />
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Margin="5">
+            <!-- File Input Button -->
+            <Button x:Name="fileButton" Content="Pilih Citra" Margin="5" Background="Gold" Click="fileButton_Click" />
+
+            <!-- Toggle Buttons for Algorithms -->
+            <RadioButton x:Name="toggleBM" Content="BM" Margin="5" GroupName="Algorithms" IsChecked="True" Background="LimeGreen" Foreground="White" Checked="toggleBM_Checked" />
+            <RadioButton x:Name="toggleKMP" Content="KMP" Margin="5" GroupName="Algorithms" Background="LimeGreen" Foreground="White" Checked="toggleKMP_Checked" />
+
+            <!-- Search Button -->
+            <Button x:Name="searchButton" Content="Search" Margin="5" Background="LimeGreen" Foreground="White" Click="searchButton_Click" />
+
+            <!-- Search Time and Match Percentage Display -->
+            <!-- Search Time and Match Percentage Display -->
+            <Label x:Name="searchTimeLabel" Content="Waktu Pencarian: xxx ms" Margin="5" Foreground="Black" />
+            <Label x:Name="matchPercentageLabel" Content="Persentase Kecocokkan: xx%" Margin="5" Foreground="Black" />
+        </StackPanel>
     </Grid>
 </Window>

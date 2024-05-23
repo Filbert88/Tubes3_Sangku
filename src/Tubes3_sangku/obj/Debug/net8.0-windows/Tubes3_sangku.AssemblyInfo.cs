@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tubes3_sangku")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20329848d1582efc8462044b089733541959f18d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26dbae46a107cbeb29908b1f378c78087c6ae00e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tubes3_sangku")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tubes3_sangku")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
