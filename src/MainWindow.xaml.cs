@@ -1,6 +1,13 @@
-﻿using System;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using Microsoft.Win32;
 using Models;
 using Services;
@@ -22,7 +29,6 @@ namespace FingerprintApp
             );
             InitializeComponent();
         }
-
         private void fileButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -30,7 +36,7 @@ namespace FingerprintApp
             if (openFileDialog.ShowDialog() == true)
             {
                 filePath = openFileDialog.FileName;
-                // inputImage.Source = new BitmapImage(new Uri(filePath));
+                inputImage.Source = new BitmapImage(new Uri(filePath));
             }
         }
 
@@ -52,10 +58,7 @@ namespace FingerprintApp
                 // Run the search operation asynchronously
                 SearchResult searchResult = await Task.Run(() => Searcher.GetResult(filePath, algorithm));
 
-                // Clear the results list
-                resultsList.Items.Clear();
-
-                // Display the results in the list
+                // Display the results in a message box
                 if (searchResult != null)
                 {
                     var biodata = searchResult.biodata;
@@ -75,15 +78,11 @@ namespace FingerprintApp
                                            $"Pekerjaan: {biodata.Pekerjaan}\n" +
                                            $"Kewarganegaraan: {biodata.Kewarganegaraan}";
 
-                    // Split result message into lines and add each line as a separate item
-                    foreach (var line in resultMessage.Split('\n'))
-                    {
-                        resultsList.Items.Add(new TextBlock { Text = line });
-                    }
+                    MessageBox.Show(resultMessage, "Search Result", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    resultsList.Items.Add(new TextBlock { Text = "No matching fingerprint found." });
+                    MessageBox.Show("No matching fingerprint found.", "Search Result", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
