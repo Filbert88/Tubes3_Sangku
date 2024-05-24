@@ -1,18 +1,13 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 using Models;
 using Services;
 using Database;
-using System.Threading.Tasks; // For asynchronous programming
 
 namespace FingerprintApp
 {
@@ -25,10 +20,11 @@ namespace FingerprintApp
                 server: "127.0.0.1",
                 user: "root",
                 database: "stima3",
-                password: "filbert21"
+                password: "YenaMaria"
             );
             InitializeComponent();
         }
+
         private void fileButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -40,7 +36,7 @@ namespace FingerprintApp
             }
         }
 
-        private async void searchButton_Click(object sender, RoutedEventArgs e) // Note the async keyword
+        private async void searchButton_Click(object sender, RoutedEventArgs e)
         {
             if (inputImage.Source == null)
             {
@@ -58,7 +54,10 @@ namespace FingerprintApp
                 // Run the search operation asynchronously
                 SearchResult searchResult = await Task.Run(() => Searcher.GetResult(filePath, algorithm));
 
-                // Display the results in a message box
+                // Clear the results list
+                resultsList.Items.Clear();
+
+                // Display the results in the list
                 if (searchResult != null)
                 {
                     var biodata = searchResult.biodata;
@@ -78,16 +77,51 @@ namespace FingerprintApp
                                            $"Pekerjaan: {biodata.Pekerjaan}\n" +
                                            $"Kewarganegaraan: {biodata.Kewarganegaraan}";
 
-                    MessageBox.Show(resultMessage, "Search Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Split result message into lines and add each line as a separate item
+                    foreach (var line in resultMessage.Split('\n'))
+                    {
+                        resultsList.Items.Add(new TextBlock { Text = line });
+                    }
+
+                    // Display the image link and the image itself
+                    if (!string.IsNullOrEmpty(searchResult.imagePath))
+                    {
+                        // Add the image path to the results list
+                        resultsList.Items.Add(new TextBlock { Text = $"Image Path: {searchResult.imagePath}" });
+
+                        // Convert the relative path to an absolute path if necessary
+                        string imagePath = searchResult.imagePath;
+                        if (!Path.IsPathRooted(imagePath))
+                        {
+                            // Assume the relative path is from the "test" directory right outside the project directory
+                            string projectDir = AppDomain.CurrentDomain.BaseDirectory;
+                            string testDir = Path.GetFullPath(Path.Combine(projectDir, "..", "..", "..","..", "test"));
+                            imagePath = Path.GetFullPath(Path.Combine(testDir, imagePath));
+                        }
+
+                        Console.WriteLine("[DEBUG] Image path: " + imagePath); // Debug output for path
+
+                        // Ensure the image is loaded on the UI thread
+                        Dispatcher.Invoke(() => {
+                            resultImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                        });
+                    }
+                    else
+                    {
+                        resultImage.Source = null;
+                        resultsList.Items.Add(new TextBlock { Text = "No image path available." });
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("No matching fingerprint found.", "Search Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                    resultsList.Items.Add(new TextBlock { Text = "No matching fingerprint found." });
+                    resultImage.Source = null;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred during the search process: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                resultImage.Source = null;
             }
         }
 
