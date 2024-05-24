@@ -4,6 +4,20 @@
              xmlns:local="clr-namespace:Tubes3_sangku"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="10,5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
     </Application.Resources>
+
 </Application>

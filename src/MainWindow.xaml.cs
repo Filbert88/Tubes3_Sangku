@@ -25,7 +25,7 @@ namespace FingerprintApp
                 server: "127.0.0.1",
                 user: "root",
                 database: "stima3",
-                password: "YenaMaria"
+                password: "filbert21"
             );
             InitializeComponent();
         }

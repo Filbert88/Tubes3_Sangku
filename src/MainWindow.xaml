@@ -4,15 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Fingerprint Matching Application" Height="450" Width="800" Background="WhiteSmoke">
+        Title="Fingerprint Matching Application" Height="500" Width="800" Background="Black">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="4*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <!-- Title Label -->
+        <Label Grid.Row="0" Content="Sangku Matcher" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="10"/>
+
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -21,46 +25,39 @@
 
             <!-- Fingerprint Input Display -->
             <Border Grid.Column="0" Background="Gray" Margin="5">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="344" Width="213">
                     <Label Content="Sidik Jari Masukan" HorizontalAlignment="Center" Foreground="White"/>
-                    <Image x:Name="inputImage" Height="200" Stretch="Fill" Margin="10"/>
+                    <Image x:Name="inputImage" Height="300" Stretch="Fill" Margin="10"/>
                 </StackPanel>
             </Border>
 
             <!-- Image Result Display -->
             <Border Grid.Column="1" Background="Gray" Margin="5">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="344" Width="213">
                     <Label Content="Sidik Jari Cocok" HorizontalAlignment="Center" Foreground="White"/>
-                    <Image x:Name="resultImage" Height="200" Stretch="Fill" Margin="10"/>
+                    <Image x:Name="resultImage" Height="300" Stretch="Fill" Margin="10"/>
                 </StackPanel>
             </Border>
 
             <!-- List of Results -->
             <Border Grid.Column="2" Background="Gray" Margin="5">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="344" Width="213">
                     <Label Content="List Biodata" HorizontalAlignment="Center" Foreground="White"/>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200">
-                        <ItemsControl x:Name="resultsList" />
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="300">
+                        <ItemsControl x:Name="resultsList" Width="154" />
                     </ScrollViewer>
                 </StackPanel>
             </Border>
         </Grid>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Margin="5">
-            <!-- File Input Button -->
-            <Button x:Name="fileButton" Content="Pilih Citra" Margin="5" Background="Gold" Click="fileButton_Click" />
-
-            <!-- Toggle Buttons for Algorithms -->
-            <RadioButton x:Name="toggleBM" Content="BM" Margin="5" GroupName="Algorithms" IsChecked="True" Background="LimeGreen" Foreground="White" Checked="toggleBM_Checked" />
-            <RadioButton x:Name="toggleKMP" Content="KMP" Margin="5" GroupName="Algorithms" Background="LimeGreen" Foreground="White" Checked="toggleKMP_Checked" />
-
-            <!-- Search Button -->
-            <Button x:Name="searchButton" Content="Search" Margin="5" Background="LimeGreen" Foreground="White" Click="searchButton_Click" />
-
-            <!-- Search Time and Match Percentage Display -->
-            <!-- Search Time and Match Percentage Display -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Margin="5">
+            <Button x:Name="fileButton" Content="Pilih Citra" Margin="5" Background="Gold" Click="fileButton_Click" Style="{StaticResource RoundedButtonStyle}"/>
+            <RadioButton x:Name="toggleBM" Content="BM" Margin="5" GroupName="Algorithms" IsChecked="True" Background="LimeGreen" Foreground="Black" Checked="toggleBM_Checked"/>
+            <RadioButton x:Name="toggleKMP" Content="KMP" Margin="5" GroupName="Algorithms" Background="LimeGreen" Foreground="Black" Checked="toggleKMP_Checked"/>
+            <Button x:Name="searchButton" Content="Search" Margin="5" Background="LimeGreen" Foreground="White" Click="searchButton_Click" Style="{StaticResource RoundedButtonStyle}"/>
             <Label x:Name="searchTimeLabel" Content="Waktu Pencarian: xxx ms" Margin="5" Foreground="Black" />
             <Label x:Name="matchPercentageLabel" Content="Persentase Kecocokkan: xx%" Margin="5" Foreground="Black" />
+            <Label x:Name="algorithmUsedLabel" Content="Algoritma Digunakan: BM" Margin="5" Foreground="Black" />
         </StackPanel>
     </Grid>
 </Window>
