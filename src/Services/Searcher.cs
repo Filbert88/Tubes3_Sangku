@@ -96,9 +96,7 @@ namespace Services
             int percentage;
             string? resultImagePath;
             string? usedAlgorithm = algo;
-
             Stopwatch stopwatch = new Stopwatch();
-
             if (algo.Equals("KMP", StringComparison.OrdinalIgnoreCase))
             {
                 stopwatch.Start();
