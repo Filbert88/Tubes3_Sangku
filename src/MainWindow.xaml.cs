@@ -42,7 +42,6 @@ namespace FingerprintApp
             public string? Value { get; set; }
         }
 
-
         private async void searchButton_Click(object sender, RoutedEventArgs e)
         {
             if (inputImage.Source == null || filePath ==  null)
@@ -70,29 +69,9 @@ namespace FingerprintApp
                 resultsList.Items.Clear();
 
                 // Display the results in the list
-                if (searchResult != null)
-                // Display the results in a message box
                 if (searchResult != null && searchResult.biodata != null)
                 {
                     var biodata = searchResult.biodata;
-                    // string resultMessage = $"Algorithm Used: {searchResult.algorithm}\n" +
-                    //                        $"Similarity: {searchResult.similarity}%\n" +
-                    //                        $"Execution Time: {searchResult.execTime} ms\n\n" +
-                    //                        $"Biodata:\n" +
-                    //                        $"NIK: {biodata.NIK}\n" +
-                    //                        $"Nama Alay: {biodata.NamaAlay}\n" +
-                    //                        $"Tempat Lahir: {biodata.TempatLahir}\n" +
-                    //                        $"Tanggal Lahir: {biodata.TanggalLahir}\n" +
-                    //                        $"Jenis Kelamin: {biodata.JenisKelamin}\n" +
-                    //                        $"Golongan Darah: {biodata.GolonganDarah}\n" +
-                    //                        $"Alamat: {biodata.Alamat}\n" +
-                    //                        $"Agama: {biodata.Agama}\n" +
-                    //                        $"Status Perkawinan: {biodata.StatusPerkawinan}\n" +
-                    //                        $"Pekerjaan: {biodata.Pekerjaan}\n" +
-                    //                        $"Kewarganegaraan: {biodata.Kewarganegaraan}";
-                    resultsList.Items.Add(new ResultItem { Label = "Algorithm Used", Value = searchResult.algorithm });
-                    resultsList.Items.Add(new ResultItem { Label = "Similarity", Value = $"{searchResult.similarity}%" });
-                    resultsList.Items.Add(new ResultItem { Label = "Execution Time", Value = $"{searchResult.execTime} ms" });
                     resultsList.Items.Add(new ResultItem { Label = "NIK", Value = $"{biodata.NIK}" });
                     resultsList.Items.Add(new ResultItem { Label = "Nama", Value = $"{biodata.NamaAlay}" });
                     resultsList.Items.Add(new ResultItem { Label = "Tempat Lahir", Value = $"{biodata.TempatLahir}" });
@@ -104,15 +83,48 @@ namespace FingerprintApp
                     resultsList.Items.Add(new ResultItem { Label = "Status Perkawinan", Value = $"{biodata.StatusPerkawinan}" });
                     resultsList.Items.Add(new ResultItem { Label = "Pekerjaan", Value = $"{biodata.Pekerjaan}" });
                     resultsList.Items.Add(new ResultItem { Label = "Kewarganegaraan", Value = $"{biodata.Kewarganegaraan}" });
+
+                    // Update labels for search time and match percentage
+                    searchTimeLabel.Content = $"Waktu Pencarian: {searchResult.execTime} ms";
+                    matchPercentageLabel.Content = $"Persentase Kecocokkan: {searchResult.similarity}%";
+                    algorithmUsedLabel.Content = $"Algoritma Digunakan: {searchResult.algorithm}";
+
+                    // Display the image link and the image itself
+                    if (!string.IsNullOrEmpty(searchResult.imagePath))
+                    {
+                        // Add the image path to the results list
+                        resultsList.Items.Add(new TextBlock { Text = $"Image Path: {searchResult.imagePath}" });
+
+                        // Convert the relative path to an absolute path if necessary
+                        string imagePath = searchResult.imagePath;
+                        if (!Path.IsPathRooted(imagePath))
+                        {
+                            // Navigate up one directory from src to locate the test directory
+                            string projectDir = AppDomain.CurrentDomain.BaseDirectory;
+                            string testDir = Path.GetFullPath(Path.Combine(projectDir, "..", "..", "..","..", "test"));
+                            imagePath = Path.GetFullPath(Path.Combine(testDir, imagePath));
+                        }
+
+                        Console.WriteLine("[DEBUG] Image path: " + imagePath); // Debug output for path
+
+                        // Ensure the image is loaded on the UI thread
+                        Dispatcher.Invoke(() => {
+                            resultImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                        });
+                    }
+                    else
+                    {
+                        resultImage.Source = null;
+                        resultsList.Items.Add(new TextBlock { Text = "No image path available." });
+                    }
+
                     placeholderText.Visibility = Visibility.Collapsed;
                     resultsList.Visibility = Visibility.Visible;
-
-                    // MessageBox.Show(resultMessage, "Search Result", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
                     placeholderText.Visibility = Visibility.Visible;
-            resultsList.Visibility = Visibility.Collapsed;
+                    resultsList.Visibility = Visibility.Collapsed;
                     resultsList.Items.Add(new TextBlock { Text = "No matching fingerprint found." });
                     resultImage.Source = null;
                 }
@@ -122,7 +134,7 @@ namespace FingerprintApp
                 MessageBox.Show("An error occurred during the search process: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 resultImage.Source = null;
                 placeholderText.Visibility = Visibility.Visible;
-        resultsList.Visibility = Visibility.Collapsed;
+                resultsList.Visibility = Visibility.Collapsed;
             }
             finally
             {
@@ -135,8 +147,7 @@ namespace FingerprintApp
         {
             if (toggleBM.IsChecked == true)
             {
-                ClearResults();   
-                // MessageBox.Show("Using Boyer-Moore algorithm.");
+                ClearResults();
             }
         }
 
@@ -145,15 +156,14 @@ namespace FingerprintApp
             if (toggleKMP.IsChecked == true)
             {
                 ClearResults();
-                // MessageBox.Show("Using Knuth-Morris-Pratt algorithm.");
             }
         }
+
         private void ClearResults()
         {
             resultsList.Items.Clear();
             placeholderText.Visibility = Visibility.Visible;  // Show the placeholder when results are cleared
             resultsList.Visibility = Visibility.Collapsed;  // Hide the results list
         }
-
     }
 }
