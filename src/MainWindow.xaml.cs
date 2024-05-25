@@ -1,18 +1,13 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 using Models;
 using Services;
 using Database;
-using System.Threading.Tasks; // For asynchronous programming
 
 namespace FingerprintApp
 {
@@ -25,10 +20,11 @@ namespace FingerprintApp
                 server: "127.0.0.1",
                 user: "root",
                 database: "stima3",
-                password: "filbert21"
+                password: "YenaMaria"
             );
             InitializeComponent();
         }
+
         private void fileButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -70,7 +66,37 @@ namespace FingerprintApp
             };
         }
 
-        private async void searchButton_Click(object sender, RoutedEventArgs e) // Note the async keyword
+        public class ResultItem
+        {
+            public string? Label { get; set; }
+            public string? Value { get; set; }
+        }
+
+        private SearchResult GetDummySearchResult(string algorithm)
+        {
+            return new SearchResult
+            {
+                algorithm = algorithm,
+                similarity = 99,
+                execTime = 123,
+                biodata = new Biodata
+                {
+                    NIK = "123456789",
+                    NamaAlay = "John Doe",
+                    TempatLahir = "Jakarta",
+                    TanggalLahir = "23/12/2024",
+                    JenisKelamin = "Male",
+                    GolonganDarah = "O",
+                    Alamat = "Jalan Sangkuriang No 11 Samping Dago Suites",
+                    Agama = "None",
+                    StatusPerkawinan = "Married",
+                    Pekerjaan = "Software Developer",
+                    Kewarganegaraan = "Indonesia"
+                }
+            };
+        }
+
+        private async void searchButton_Click(object sender, RoutedEventArgs e)
         {
             if (inputImage.Source == null || filePath ==  null)
             {
@@ -93,6 +119,11 @@ namespace FingerprintApp
                 // Run the search operation asynchronously
                 SearchResult searchResult = await Task.Run(() => GetDummySearchResult(algorithm));
 
+                // Clear the results list
+                resultsList.Items.Clear();
+
+                // Display the results in the list
+                if (searchResult != null)
                 // Display the results in a message box
                 if (searchResult != null && searchResult.biodata != null)
                 {
@@ -146,12 +177,14 @@ namespace FingerprintApp
                 {
                     placeholderText.Visibility = Visibility.Visible;
             resultsList.Visibility = Visibility.Collapsed;
-                    MessageBox.Show("No matching fingerprint found.", "Search Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                    resultsList.Items.Add(new TextBlock { Text = "No matching fingerprint found." });
+                    resultImage.Source = null;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred during the search process: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                resultImage.Source = null;
                 placeholderText.Visibility = Visibility.Visible;
         resultsList.Visibility = Visibility.Collapsed;
             }
@@ -178,6 +211,12 @@ namespace FingerprintApp
                 ClearResults();
                 // MessageBox.Show("Using Knuth-Morris-Pratt algorithm.");
             }
+        }
+        private void ClearResults()
+        {
+            resultsList.Items.Clear();
+            placeholderText.Visibility = Visibility.Visible;  // Show the placeholder when results are cleared
+            resultsList.Visibility = Visibility.Collapsed;  // Hide the results list
         }
         private void ClearResults()
         {
