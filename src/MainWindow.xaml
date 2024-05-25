@@ -4,7 +4,61 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Fingerprint Matching Application" Height="500" Width="800" Background="Black">
+        Title="Fingerprint Matching Application"
+        Height="500" 
+        Width="800" 
+        Background="#131313"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        >
+
+    <Window.Resources>
+    <DataTemplate x:Key="ResultDataTemplate">
+        <Border Background="#1B1B1B" Margin="2" Padding="5" CornerRadius="5">
+            <StackPanel>
+                <TextBlock Text="{Binding Label}" Foreground="#989898" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Value}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </DataTemplate>
+
+    <!-- ScrollBar Style applicable to all Vertical ScrollBars within this Window -->
+    <Style TargetType="ScrollBar">
+        <Setter Property="Width" Value="4"/> <!-- Smaller width for the scrollbar -->
+        <Setter Property="Background" Value="#2E2E2E"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollBar">
+                            <Grid>
+                                <Track x:Name="PART_Track" IsDirectionReversed="True" Orientation="Vertical">
+                                    <Track.Thumb>
+                                        <Thumb Background="{TemplateBinding Background}" BorderThickness="0">
+                                            <Thumb.Template>
+                                                <ControlTemplate TargetType="Thumb">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="4" Width="8" Height="60"/>
+                                                </ControlTemplate>
+                                            </Thumb.Template>
+                                        </Thumb>
+                                    </Track.Thumb>
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0" Width="0" Height="0"/>
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0" Width="0" Height="0"/>
+                                    </Track.IncreaseRepeatButton>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</Window.Resources>
+
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,50 +68,104 @@
         </Grid.RowDefinitions>
 
         <!-- Title Label -->
-        <Label Grid.Row="0" Content="Sangku Matcher" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="10"/>
+        <Label Grid.Row="0" Content="Sangku Matcher" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Margin="10"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
 
+            <Grid x:Name="loadingPanel" Visibility="Collapsed" Grid.ColumnSpan="3" Grid.ZIndex="100" Background="#AA000000">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse x:Name="animatedEllipse" Width="50" Height="50">
+                        <Ellipse.Stroke>
+                            <LinearGradientBrush>
+                                <GradientStop Color="White" Offset="0.0"/>
+                                <GradientStop Color="Gray" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Stroke>
+                        <Ellipse.StrokeThickness>8</Ellipse.StrokeThickness>
+                        <Ellipse.StrokeDashArray>1 2</Ellipse.StrokeDashArray>
+                        <Ellipse.Triggers>
+                            <EventTrigger RoutedEvent="Ellipse.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetProperty="StrokeDashOffset"
+                                            From="0" To="20" Duration="0:0:1.5"
+                                            RepeatBehavior="Forever" AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Ellipse.Triggers>
+                    </Ellipse>
+                </StackPanel>
+            </Grid>
+
+
+
             <!-- Fingerprint Input Display -->
-            <Border Grid.Column="0" Background="Gray" Margin="5">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="344" Width="213">
-                    <Label Content="Sidik Jari Masukan" HorizontalAlignment="Center" Foreground="White"/>
+            <Border Grid.Column="0" Background="#1B1B1B" Margin="5" CornerRadius="5">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="344" Width="213" >
+                    <Label Content="Sidik Jari Masukan" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#989898"/>
                     <Image x:Name="inputImage" Height="300" Stretch="Fill" Margin="10"/>
                 </StackPanel>
             </Border>
 
             <!-- Image Result Display -->
-            <Border Grid.Column="1" Background="Gray" Margin="5">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="344" Width="213">
-                    <Label Content="Sidik Jari Cocok" HorizontalAlignment="Center" Foreground="White"/>
+            <Border Grid.Column="1" Background="#1B1B1B" Margin="5" CornerRadius="5">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="344" Width="213" >
+                    <Label Content="Sidik Jari Cocok" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#989898"/>
                     <Image x:Name="resultImage" Height="300" Stretch="Fill" Margin="10"/>
                 </StackPanel>
             </Border>
 
             <!-- List of Results -->
-            <Border Grid.Column="2" Background="Gray" Margin="5">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="344" Width="213">
-                    <Label Content="List Biodata" HorizontalAlignment="Center" Foreground="White"/>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="300">
-                        <ItemsControl x:Name="resultsList" Width="154" />
-                    </ScrollViewer>
-                </StackPanel>
-            </Border>
+            <Border Grid.Column="2" Background="#131313" Margin="5" CornerRadius="5">
+    <Grid Height="344" Width="213">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/> <!-- Label row -->
+        <RowDefinition Height="*"/>   <!-- Content row (placeholder or list) -->
+    </Grid.RowDefinitions>
+
+    <Label Grid.Row="0" Content="List Biodata" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#989898"/>
+
+    <!-- Placeholder TextBlock -->
+    <TextBlock x:Name="placeholderText" Text="No Result Found Yet! Search First!" Foreground="#989898" FontWeight="Bold"
+               HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible" Grid.Row="1"/>
+
+    <!-- ScrollViewer and ItemsControl for the results -->
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="300" Grid.Row="1">
+        <ItemsControl x:Name="resultsList" Width="154" ItemTemplate="{StaticResource ResultDataTemplate}">
+            <ItemsControl.Style>
+                <Style TargetType="ItemsControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Items.Count, ElementName=resultsList}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.Style>
+        </ItemsControl>
+    </ScrollViewer>
+</Grid>
+
+</Border>
+
+
+
         </Grid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Margin="5">
-            <Button x:Name="fileButton" Content="Pilih Citra" Margin="5" Background="Gold" Click="fileButton_Click" Style="{StaticResource RoundedButtonStyle}"/>
-            <RadioButton x:Name="toggleBM" Content="BM" Margin="5" GroupName="Algorithms" IsChecked="True" Background="LimeGreen" Foreground="Black" Checked="toggleBM_Checked"/>
-            <RadioButton x:Name="toggleKMP" Content="KMP" Margin="5" GroupName="Algorithms" Background="LimeGreen" Foreground="Black" Checked="toggleKMP_Checked"/>
-            <Button x:Name="searchButton" Content="Search" Margin="5" Background="LimeGreen" Foreground="White" Click="searchButton_Click" Style="{StaticResource RoundedButtonStyle}"/>
-            <Label x:Name="searchTimeLabel" Content="Waktu Pencarian: xxx ms" Margin="5" Foreground="Black" />
-            <Label x:Name="matchPercentageLabel" Content="Persentase Kecocokkan: xx%" Margin="5" Foreground="Black" />
-            <Label x:Name="algorithmUsedLabel" Content="Algoritma Digunakan: BM" Margin="5" Foreground="Black" />
+            <Button x:Name="fileButton" Content="Pilih Citra" Margin="5" Background="#311C31" Foreground="#FC72FF" FontWeight="Bold" Click="fileButton_Click" Style="{StaticResource RoundedButtonStyle}"/>
+            <RadioButton x:Name="toggleBM" Content="BM" Margin="5" GroupName="Algorithms" IsChecked="True" Background="#989898" Foreground="#989898" FontWeight="Bold" Checked="toggleBM_Checked" VerticalAlignment="Center"/>
+            <RadioButton x:Name="toggleKMP" Content="KMP" Margin="5" GroupName="Algorithms" Background="#989898" Foreground="#989898" FontWeight="Bold" Checked="toggleKMP_Checked" VerticalAlignment="Center"/>
+            <Button x:Name="searchButton" Content="Search" Margin="5" Background="#311C31" Foreground="#FC72FF" Click="searchButton_Click" FontWeight="Bold" Style="{StaticResource RoundedButtonStyle}"/>
+            <Label x:Name="searchTimeLabel"  FontWeight="Bold" Content="Waktu Pencarian: xxx ms" Margin="5" Foreground="#989898" VerticalAlignment="Center"/>
+            <Label x:Name="matchPercentageLabel" FontWeight="Bold" Content="Persentase Kecocokkan: xx%" Margin="5" Foreground="#989898" VerticalAlignment="Center" />
+            <Label x:Name="algorithmUsedLabel" FontWeight="Bold" Content="Algoritma Digunakan: -" Margin="5" Foreground="#989898" VerticalAlignment="Center" />
         </StackPanel>
     </Grid>
 </Window>
