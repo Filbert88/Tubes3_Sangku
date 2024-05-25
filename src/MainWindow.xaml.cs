@@ -42,59 +42,6 @@ namespace FingerprintApp
             public string? Value { get; set; }
         }
 
-        private SearchResult GetDummySearchResult(string algorithm)
-        {
-            return new SearchResult
-            {
-                algorithm = algorithm,
-                similarity = 99,
-                execTime = 123,
-                biodata = new Biodata
-                {
-                    NIK = "123456789",
-                    NamaAlay = "John Doe",
-                    TempatLahir = "Jakarta",
-                    TanggalLahir = "23/12/2024",
-                    JenisKelamin = "Male",
-                    GolonganDarah = "O",
-                    Alamat = "Jalan Sangkuriang No 11 Samping Dago Suites",
-                    Agama = "None",
-                    StatusPerkawinan = "Married",
-                    Pekerjaan = "Software Developer",
-                    Kewarganegaraan = "Indonesia"
-                }
-            };
-        }
-
-        public class ResultItem
-        {
-            public string? Label { get; set; }
-            public string? Value { get; set; }
-        }
-
-        private SearchResult GetDummySearchResult(string algorithm)
-        {
-            return new SearchResult
-            {
-                algorithm = algorithm,
-                similarity = 99,
-                execTime = 123,
-                biodata = new Biodata
-                {
-                    NIK = "123456789",
-                    NamaAlay = "John Doe",
-                    TempatLahir = "Jakarta",
-                    TanggalLahir = "23/12/2024",
-                    JenisKelamin = "Male",
-                    GolonganDarah = "O",
-                    Alamat = "Jalan Sangkuriang No 11 Samping Dago Suites",
-                    Agama = "None",
-                    StatusPerkawinan = "Married",
-                    Pekerjaan = "Software Developer",
-                    Kewarganegaraan = "Indonesia"
-                }
-            };
-        }
 
         private async void searchButton_Click(object sender, RoutedEventArgs e)
         {
@@ -117,7 +64,7 @@ namespace FingerprintApp
             try
             {
                 // Run the search operation asynchronously
-                SearchResult searchResult = await Task.Run(() => GetDummySearchResult(algorithm));
+                SearchResult searchResult = await Task.Run(() => Searcher.GetResult(filePath, algorithm));
 
                 // Clear the results list
                 resultsList.Items.Clear();
@@ -128,21 +75,21 @@ namespace FingerprintApp
                 if (searchResult != null && searchResult.biodata != null)
                 {
                     var biodata = searchResult.biodata;
-                    string resultMessage = $"Algorithm Used: {searchResult.algorithm}\n" +
-                                           $"Similarity: {searchResult.similarity}%\n" +
-                                           $"Execution Time: {searchResult.execTime} ms\n\n" +
-                                           $"Biodata:\n" +
-                                           $"NIK: {biodata.NIK}\n" +
-                                           $"Nama Alay: {biodata.NamaAlay}\n" +
-                                           $"Tempat Lahir: {biodata.TempatLahir}\n" +
-                                           $"Tanggal Lahir: {biodata.TanggalLahir}\n" +
-                                           $"Jenis Kelamin: {biodata.JenisKelamin}\n" +
-                                           $"Golongan Darah: {biodata.GolonganDarah}\n" +
-                                           $"Alamat: {biodata.Alamat}\n" +
-                                           $"Agama: {biodata.Agama}\n" +
-                                           $"Status Perkawinan: {biodata.StatusPerkawinan}\n" +
-                                           $"Pekerjaan: {biodata.Pekerjaan}\n" +
-                                           $"Kewarganegaraan: {biodata.Kewarganegaraan}";
+                    // string resultMessage = $"Algorithm Used: {searchResult.algorithm}\n" +
+                    //                        $"Similarity: {searchResult.similarity}%\n" +
+                    //                        $"Execution Time: {searchResult.execTime} ms\n\n" +
+                    //                        $"Biodata:\n" +
+                    //                        $"NIK: {biodata.NIK}\n" +
+                    //                        $"Nama Alay: {biodata.NamaAlay}\n" +
+                    //                        $"Tempat Lahir: {biodata.TempatLahir}\n" +
+                    //                        $"Tanggal Lahir: {biodata.TanggalLahir}\n" +
+                    //                        $"Jenis Kelamin: {biodata.JenisKelamin}\n" +
+                    //                        $"Golongan Darah: {biodata.GolonganDarah}\n" +
+                    //                        $"Alamat: {biodata.Alamat}\n" +
+                    //                        $"Agama: {biodata.Agama}\n" +
+                    //                        $"Status Perkawinan: {biodata.StatusPerkawinan}\n" +
+                    //                        $"Pekerjaan: {biodata.Pekerjaan}\n" +
+                    //                        $"Kewarganegaraan: {biodata.Kewarganegaraan}";
                     resultsList.Items.Add(new ResultItem { Label = "Algorithm Used", Value = searchResult.algorithm });
                     resultsList.Items.Add(new ResultItem { Label = "Similarity", Value = $"{searchResult.similarity}%" });
                     resultsList.Items.Add(new ResultItem { Label = "Execution Time", Value = $"{searchResult.execTime} ms" });
@@ -157,17 +104,6 @@ namespace FingerprintApp
                     resultsList.Items.Add(new ResultItem { Label = "Status Perkawinan", Value = $"{biodata.StatusPerkawinan}" });
                     resultsList.Items.Add(new ResultItem { Label = "Pekerjaan", Value = $"{biodata.Pekerjaan}" });
                     resultsList.Items.Add(new ResultItem { Label = "Kewarganegaraan", Value = $"{biodata.Kewarganegaraan}" });
-                    // resultsList.Items.Add($"NIK: {biodata.NIK}");
-                    // resultsList.Items.Add($"Nama: {biodata.NamaAlay}");
-                    // resultsList.Items.Add($"Tempat Lahir: {biodata.TempatLahir}");
-                    // resultsList.Items.Add($"Tanggal Lahir: {biodata.TanggalLahir}");
-                    // resultsList.Items.Add($"Jenis Kelamin: {biodata.JenisKelamin}");
-                    // resultsList.Items.Add($"Golongan Darah: {biodata.GolonganDarah}");
-                    // resultsList.Items.Add($"Alamat: {biodata.Alamat}");
-                    // resultsList.Items.Add($"Agama: {biodata.Agama}");
-                    // resultsList.Items.Add($"Status Perkawinan: {biodata.StatusPerkawinan}");
-                    // resultsList.Items.Add($"Pekerjaan: {biodata.Pekerjaan}");
-                    // resultsList.Items.Add($"Kewarganegaraan: {biodata.Kewarganegaraan}");
                     placeholderText.Visibility = Visibility.Collapsed;
                     resultsList.Visibility = Visibility.Visible;
 
@@ -218,11 +154,6 @@ namespace FingerprintApp
             placeholderText.Visibility = Visibility.Visible;  // Show the placeholder when results are cleared
             resultsList.Visibility = Visibility.Collapsed;  // Hide the results list
         }
-        private void ClearResults()
-        {
-            resultsList.Items.Clear();
-            placeholderText.Visibility = Visibility.Visible;  // Show the placeholder when results are cleared
-            resultsList.Visibility = Visibility.Collapsed;  // Hide the results list
-        }
+
     }
 }
