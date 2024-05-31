@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -17,11 +15,13 @@ namespace FingerprintApp
         public MainWindow()
         {
             DatabaseConfig.SetConnection(
-                server: "127.0.0.1",
-                user: "root",
+                server: "mysql-clouddb-moontrainid-a5ed.f.aivencloud.com",
+                user: "avnadmin",
                 database: "stima3",
-                password: "YenaMaria"
+                password: "AVNS_Zgr-PR3FZxLojDhMyBk",
+                port: 11441
             );
+
             InitializeComponent();
         }
 
@@ -44,7 +44,7 @@ namespace FingerprintApp
 
         private async void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (inputImage.Source == null || filePath ==  null)
+            if (inputImage.Source == null || filePath == null)
             {
                 MessageBox.Show("Please select an image first.", "No Image Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -101,14 +101,15 @@ namespace FingerprintApp
                         {
                             // Navigate up one directory from src to locate the test directory
                             string projectDir = AppDomain.CurrentDomain.BaseDirectory;
-                            string testDir = Path.GetFullPath(Path.Combine(projectDir, "..", "..", "..","..", "test"));
+                            string testDir = Path.GetFullPath(Path.Combine(projectDir, "..", "..", "..", "..", "test"));
                             imagePath = Path.GetFullPath(Path.Combine(testDir, imagePath));
                         }
 
                         Console.WriteLine("[DEBUG] Image path: " + imagePath); // Debug output for path
 
                         // Ensure the image is loaded on the UI thread
-                        Dispatcher.Invoke(() => {
+                        Dispatcher.Invoke(() =>
+                        {
                             resultImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
                         });
                     }

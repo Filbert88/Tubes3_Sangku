@@ -32,7 +32,7 @@ namespace Services
 
         private static Biodata GetBiodataByRegexAlayOrLD(string nama)
         {
-            var biodatas = DbController.GetBiodataList();
+            var biodatas = DbController.GetDecryptedBiodataList();
             foreach (var biodata in biodatas)
             {
                 if (AlayPatternMatcher.IsMatch(nama, biodata.NamaAlay))
@@ -89,14 +89,16 @@ namespace Services
         public static SearchResult GetResult(string imagePath, string algo)
         {
             var fullPixelAscii = ImageProcessor.ReadAllPixelToAscii(imagePath);
-            var fingerprintPaths = DbController.GetFingerprintList();
+            var fingerprintPaths = DbController.GetDecryptedFingerprintList();
             var fingerprints = FingerprintProcessor.Process(fingerprintPaths);
             var pattern = ImageProcessor.ReadBestPixelToAscii(imagePath);
             string? namaAlay;
             int percentage;
             string? resultImagePath;
             string? usedAlgorithm = algo;
+
             Stopwatch stopwatch = new Stopwatch();
+
             if (algo.Equals("KMP", StringComparison.OrdinalIgnoreCase))
             {
                 stopwatch.Start();
