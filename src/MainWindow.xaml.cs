@@ -53,6 +53,11 @@ namespace FingerprintApp
             loadingPanel.Visibility = Visibility.Visible;
             ClearResults();
 
+            searchTimeLabel.Content = "Waktu Pencarian: - ms";
+            matchPercentageLabel.Content = "Persentase Kecocokkan: -%";
+            algorithmUsedLabel.Content = "Algoritma Digunakan: -";
+            resultImage.Source = null;
+
             string algorithm = toggleBM.IsChecked == true ? "BM" : "KMP";
             Console.WriteLine("[DEBUG] Search button clicked");
             Console.WriteLine("[DEBUG] Selected file path: " + filePath);
@@ -66,7 +71,6 @@ namespace FingerprintApp
                 resultsList.Items.Clear();  
                 if (searchResult.biodata != null)
                 {
-                    MessageBox.Show("Tes", "Ketemu", MessageBoxButton.OK, MessageBoxImage.Warning);
                     var biodata = searchResult.biodata;
                     resultsList.Items.Add(new ResultItem { Label = "NIK", Value = $"{biodata.NIK}" });
                     resultsList.Items.Add(new ResultItem { Label = "Nama", Value = $"{biodata.NamaAlay}" });
@@ -83,25 +87,20 @@ namespace FingerprintApp
                     matchPercentageLabel.Content = $"Persentase Kecocokkan: {searchResult.similarity}%";
                     algorithmUsedLabel.Content = $"Algoritma Digunakan: {searchResult.algorithm}";
 
-                    // Display the image link and the image itself
                     if (!string.IsNullOrEmpty(searchResult.imagePath))
                     {
-                        // Add the image path to the results list
                         resultsList.Items.Add(new TextBlock { Text = $"Image Path: {searchResult.imagePath}" });
 
-                        // Convert the relative path to an absolute path if necessary
                         string imagePath = searchResult.imagePath;
                         if (!Path.IsPathRooted(imagePath))
                         {
-                            // Navigate up one directory from src to locate the test directory
                             string projectDir = AppDomain.CurrentDomain.BaseDirectory;
                             string testDir = Path.GetFullPath(Path.Combine(projectDir, "..", "..", "..", "..", "test"));
                             imagePath = Path.GetFullPath(Path.Combine(testDir, imagePath));
                         }
 
-                        Console.WriteLine("[DEBUG] Image path: " + imagePath); // Debug output for path
+                        Console.WriteLine("[DEBUG] Image path: " + imagePath); 
 
-                        // Ensure the image is loaded on the UI thread
                         Dispatcher.Invoke(() =>
                         {
                             resultImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
@@ -119,11 +118,10 @@ namespace FingerprintApp
                     }
                 else
                 {
-                    MessageBox.Show("No result found", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                     resultsList.Items.Clear();
-                    placeholderText.Visibility = Visibility.Visible;
-                    resultsList.Visibility = Visibility.Collapsed;
-                    resultsList.Items.Add(new TextBlock { Text = "No matching fingerprint found." });
+                    placeholderText.Visibility = Visibility.Collapsed;
+                    resultsList.Items.Add(new ResultItem { Label = "", Value = "No matching fingerprint found." });
+                    resultsList.Visibility = Visibility.Visible;
                     searchTimeLabel.Content = $"Waktu Pencarian: {searchResult.execTime} ms";
                     matchPercentageLabel.Content = $"Persentase Kecocokkan: 0%";
                     resultImage.Source = null;
@@ -142,7 +140,6 @@ namespace FingerprintApp
             }
         }
 
-        // Update UI when toggling algorithms
         private void toggleBM_Checked(object sender, RoutedEventArgs e)
         {
             if (toggleBM.IsChecked == true)
@@ -162,8 +159,8 @@ namespace FingerprintApp
         private void ClearResults()
         {
             resultsList.Items.Clear();
-            placeholderText.Visibility = Visibility.Visible;  // Show the placeholder when results are cleared
-            resultsList.Visibility = Visibility.Collapsed;  // Hide the results list
+            placeholderText.Visibility = Visibility.Visible; 
+            resultsList.Visibility = Visibility.Collapsed;  
         }
     }
 }
