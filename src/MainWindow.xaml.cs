@@ -62,15 +62,11 @@ namespace FingerprintApp
 
             try
             {
-                // Run the search operation asynchronously
                 SearchResult searchResult = await Task.Run(() => Searcher.GetResult(filePath, algorithm));
-
-                // Clear the results list
-                resultsList.Items.Clear();
-
-                // Display the results in the list
-                if (searchResult != null && searchResult.biodata != null)
+                resultsList.Items.Clear();  
+                if (searchResult.biodata != null)
                 {
+                    MessageBox.Show("Tes", "Ketemu", MessageBoxButton.OK, MessageBoxImage.Warning);
                     var biodata = searchResult.biodata;
                     resultsList.Items.Add(new ResultItem { Label = "NIK", Value = $"{biodata.NIK}" });
                     resultsList.Items.Add(new ResultItem { Label = "Nama", Value = $"{biodata.NamaAlay}" });
@@ -83,8 +79,6 @@ namespace FingerprintApp
                     resultsList.Items.Add(new ResultItem { Label = "Status Perkawinan", Value = $"{biodata.StatusPerkawinan}" });
                     resultsList.Items.Add(new ResultItem { Label = "Pekerjaan", Value = $"{biodata.Pekerjaan}" });
                     resultsList.Items.Add(new ResultItem { Label = "Kewarganegaraan", Value = $"{biodata.Kewarganegaraan}" });
-
-                    // Update labels for search time and match percentage
                     searchTimeLabel.Content = $"Waktu Pencarian: {searchResult.execTime} ms";
                     matchPercentageLabel.Content = $"Persentase Kecocokkan: {searchResult.similarity}%";
                     algorithmUsedLabel.Content = $"Algoritma Digunakan: {searchResult.algorithm}";
@@ -115,18 +109,23 @@ namespace FingerprintApp
                     }
                     else
                     {
+                        MessageBox.Show("Kosong", "Kosong", MessageBoxButton.OK, MessageBoxImage.Warning);
                         resultImage.Source = null;
                         resultsList.Items.Add(new TextBlock { Text = "No image path available." });
                     }
 
                     placeholderText.Visibility = Visibility.Collapsed;
                     resultsList.Visibility = Visibility.Visible;
-                }
+                    }
                 else
                 {
+                    MessageBox.Show("No result found", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    resultsList.Items.Clear();
                     placeholderText.Visibility = Visibility.Visible;
                     resultsList.Visibility = Visibility.Collapsed;
                     resultsList.Items.Add(new TextBlock { Text = "No matching fingerprint found." });
+                    searchTimeLabel.Content = $"Waktu Pencarian: {searchResult.execTime} ms";
+                    matchPercentageLabel.Content = $"Persentase Kecocokkan: 0%";
                     resultImage.Source = null;
                 }
             }
