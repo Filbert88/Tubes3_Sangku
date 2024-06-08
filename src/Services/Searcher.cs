@@ -26,6 +26,9 @@ namespace Services
             }
 
             int similarityPercentage = (int)Math.Round(maxSimilarity * 100);
+            if (similarityPercentage < threshold) {
+                return (null, similarityPercentage, null);
+            }
 
             return (result.Nama, similarityPercentage, result.ImagePath);
         }
