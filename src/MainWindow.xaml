@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Fingerprint Matching Application"
         Height="500" 
-        Width="800" 
+        Width="900" 
         Background="#131313"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -163,8 +163,8 @@
             <RadioButton x:Name="toggleBM" Content="BM" Margin="5" GroupName="Algorithms" IsChecked="True" Background="#989898" Foreground="#989898" FontWeight="Bold" Checked="toggleBM_Checked" VerticalAlignment="Center"/>
             <RadioButton x:Name="toggleKMP" Content="KMP" Margin="5" GroupName="Algorithms" Background="#989898" Foreground="#989898" FontWeight="Bold" Checked="toggleKMP_Checked" VerticalAlignment="Center"/>
             <Button x:Name="searchButton" Content="Search" Margin="5" Background="#311C31" Foreground="#FC72FF" Click="searchButton_Click" FontWeight="Bold" Style="{StaticResource RoundedButtonStyle}"/>
-            <Label x:Name="searchTimeLabel"  FontWeight="Bold" Content="Waktu Pencarian: xxx ms" Margin="5" Foreground="#989898" VerticalAlignment="Center"/>
-            <Label x:Name="matchPercentageLabel" FontWeight="Bold" Content="Persentase Kecocokkan: xx%" Margin="5" Foreground="#989898" VerticalAlignment="Center" />
+            <Label x:Name="searchTimeLabel"  FontWeight="Bold" Content="Waktu Pencarian: - ms" Margin="5" Foreground="#989898" VerticalAlignment="Center"/>
+            <Label x:Name="matchPercentageLabel" FontWeight="Bold" Content="Persentase Kecocokkan: -%" Margin="5" Foreground="#989898" VerticalAlignment="Center" />
             <Label x:Name="algorithmUsedLabel" FontWeight="Bold" Content="Algoritma Digunakan: -" Margin="5" Foreground="#989898" VerticalAlignment="Center" />
         </StackPanel>
     </Grid>
