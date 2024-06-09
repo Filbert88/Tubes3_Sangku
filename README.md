@@ -3,7 +3,7 @@
 <h2 align="center">Semester II Tahun 2023/2024</h2>
 <h3 align="center">Utilization of Pattern Matching in Building Biometric-Based Individual Detection System Through Fingerprint Images</h3>
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Filbert88/Tucil3_13522021)
+![GitHub last commit](https://img.shields.io/github/last-commit/Filbert88/Tubes3_Sangku)
 
 ## Table of Contents
 * [Overview](#Overview)
@@ -11,7 +11,6 @@
 * [Features](#features)
 * [Setup](#setup)
 * [How to Use the Program](#how-to-use-program)
-* [Limitations](#limitations)
 * [Creator](#creator)
 * [Documentation](#documentation)
 * [Links](#links)
