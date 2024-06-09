@@ -67,6 +67,9 @@ https://github.com/Filbert88/Tubes3_Sangku.git
 ``` 
 2. Enter the directory
 ```
+cd Tubes3_Sangku
+```
+```
 cd src
 ```
 
