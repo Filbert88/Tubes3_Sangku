@@ -39,7 +39,7 @@ To successfully set up and run this project, ensure that the following prerequis
 To install Dotnet, you can follow the official Microsoft guidelines available at [Dotnet Installation Guide](https://dotnet.microsoft.com/en-us/download).
 
 ## Features
-- **Algorithms**: This system employs three different algorithms for effective fingerprint pattern matching and identification:
+- **Algorithms**: This system employs three different algorithms for effective fingerprint pattern matching and identification and also the regex algorithm:
   - **Knuth-Morris-Pratt (KMP)**:
     - Utilizes a partial match table to determine the next positions to skip to after a mismatch, optimizing the search process.
     - Efficient in scenarios with repetitive patterns, reducing unnecessary comparisons, thus providing consistent and reliable performance.
@@ -52,6 +52,10 @@ To install Dotnet, you can follow the official Microsoft guidelines available at
     - Calculates the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into another.
     - Useful for measuring the similarity between the entered fingerprint and stored prints, accommodating inaccuracies or partial prints effectively.
 
+  - **Regular Expressions (Regex)**:
+    - Leverages patterns to match or replace text based on predefined rules and characters.
+    - Extremely versatile for validating and parsing text, allowing complex search patterns that are concise yet expressive.
+    
 - Each algorithm offers a unique approach to solving fingerprint identification problems, showcasing the strengths and weaknesses of each method and providing a robust solution when combined.
 
 ## Setup
