@@ -12,6 +12,7 @@
 * [Setup](#setup)
 * [How to Use the Program](#how-to-use-program)
 * [Creator](#creator)
+* [Limitation](#limitation)
 * [Documentation](#documentation)
 * [Links](#links)
 
@@ -90,6 +91,11 @@ dotnet run
 | 13522021 | Filbert | K-01  |
 | 13522073 | Juan Alfred Widjaya | K-01  |
 | 10023457 | Habibi Galang Trianda | K-01  |
+
+## Limitation
+The fingerprint images used in this system are sourced exclusively from the following dataset:
+[SOCOFing Dataset on Kaggle](https://www.kaggle.com/datasets/ruizgara/socofing).
+As a result, testing and functionality of the program are limited to images obtained from this specific dataset.
 
 ## Documentation
 ### Graphical User Interface (GUI)
